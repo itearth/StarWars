@@ -1,0 +1,131 @@
+@import '../Scss/colors/colors.scss';
+
+@media (max-width: 768px) {
+  .cardsContainer {
+    flex-direction: column; /* Stack cards vertically on small screens */
+    margin: 0 20px; /* Reduce horizontal margin */
+  }
+
+  .card {
+    width: 100%; /* Make cards full width on small screens */
+  }
+}
+
+
+.pageContainer {
+  min-height: 100vh; /* Use min-height instead of height */
+  background-color: $backgroundColor;
+  display: flex;
+  flex-direction: column; /* This helps with growing content */
+  overflow: hidden; /* Prevent scroll bars from showing on the body */
+}
+/* Styles for loading container */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Styles for cards container */
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  margin: 0 60px;
+  
+}
+
+
+/* Styles for individual cards */
+.card {
+  border: 1px solid #ccc;
+  padding: 5px;
+  width: calc(30% - 20px); 
+  /* background-color: #f7f7f7; */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: $cardBackgroundColor;
+  box-shadow: 0 5px 10px rgba(45, 53, 124, 0.1);
+  border: 1px solid  $cardBorderColor;
+}
+
+
+.cardImage {
+  overflow: hidden;
+  height: 150px;
+  border-radius: 8px 8px 0 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cardTitle {
+  /* font-size: 20px; */
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: $textColor;
+  font-family: Monospace;
+}
+
+.cardBody {
+  /* font-size: 16px; */
+  font-size: 16px;
+  color:$textBodyColor;
+  font-family: Monospace;
+  font-weight: bold;
+}
+
+.cardButton {
+  background-color: $primaryColor;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.cardButton:hover {
+  background-color:   $secondaryColor;
+}
+
+.marginTop {
+  margin-top: 50px;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.paginationButton {
+  background-color: #142d4c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageNumber {
+  font-size: 16px;
+}
+
