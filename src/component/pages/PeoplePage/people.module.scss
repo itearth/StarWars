@@ -1,4 +1,4 @@
-@import '../Scss/colors/colors.scss';
+// @import '../Scss/colors/colors.scss';
 
 @media (max-width: 768px) {
   .cardsContainer {
@@ -8,13 +8,13 @@
 
   .card {
     width: 100%; /* Make cards full width on small screens */
-  }
+
 }
 
 
 .pageContainer {
   min-height: 100vh; /* Use min-height instead of height */
-  background-color: $backgroundColor;
+  background-color: var(--backgroundColor);
   display: flex;
   flex-direction: column; /* This helps with growing content */
   overflow: hidden; /* Prevent scroll bars from showing on the body */
@@ -25,6 +25,11 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  position: fixed; /* Position the loading container relative to the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  // height: 100%;
 }
 
 /* Styles for cards container */
@@ -35,6 +40,18 @@
   justify-content: space-between;
   margin: 0 60px;
   
+/* Apply flex-grow to allow ::after to cover the whole container */
+flex-grow: 1;
+
+/* Position the pseudo-element relative to the container */
+position: relative;
+
+&:hover::after {
+  /* Show the pseudo-element on container hover */
+  opacity: 5;
+  transform: scale(1.2);
+}
+
 }
 
 
@@ -47,9 +64,28 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  background-color: $cardBackgroundColor;
+  background-color: var(--cardBackgroundColor);
   box-shadow: 0 5px 10px rgba(45, 53, 124, 0.1);
-  border: 1px solid  $cardBorderColor;
+  border: 1px solid  var(--cardBorderColor);
+
+  &:hover {
+    /* Add a yellow glow effect using ::after pseudo-element */
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background-color:var(--hoverBackground);
+      opacity: 0; /* Start with no opacity */
+      transform: scale(1.1);
+      z-index: -1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+  }
+  
 }
 
 
@@ -69,20 +105,20 @@
   margin-bottom: 10px;
   font-size: 24px;
   font-weight: bold;
-  color: $textColor;
+  color: var(--textColor);
   font-family: Monospace;
 }
 
 .cardBody {
   /* font-size: 16px; */
   font-size: 16px;
-  color:$textBodyColor;
+  color:var(--textBodyColor);
   font-family: Monospace;
   font-weight: bold;
 }
 
 .cardButton {
-  background-color: $primaryColor;
+  background-color: var(--primaryColor);
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -93,7 +129,7 @@
 }
 
 .cardButton:hover {
-  background-color:   $secondaryColor;
+  background-color: var(--secondaryColor);
 }
 
 .marginTop {
@@ -129,3 +165,4 @@
   font-size: 16px;
 }
 
+}

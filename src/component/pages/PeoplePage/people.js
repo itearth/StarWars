@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../../generics/Navbar/navbar';
-import styles from '../PeoplePage/people.module.scss';
+import styles from './people.module.scss';
 import { BarLoader } from 'react-spinners';
 import { peopleActions } from '../../../redux/slices/star.slice'; // Update the path accordingly
 import { fetchPeople } from '../../../services/starService';
@@ -12,17 +11,33 @@ function PeoplePage() {
 
   const dispatch = useDispatch();
   const { people, loading } = useSelector((state) => state.peopleState);
-  const itemsPerPage = 6; // Number of items per page
+  const itemsPerPage = 10; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1); // Track total pages
 
   useEffect(() => {
-    dispatch(fetchPeople());
+    // Fetch total count to calculate total pages
+    async function fetchTotalCount() {
+      try {
+        const response = await fetchPeople(1)(dispatch);
+        setTotalPages(Math.ceil(response.count / itemsPerPage));
+      } catch (exception) {
+        // Handle error
+      }
+    }
+
+    fetchTotalCount();
+  }, [dispatch]);
+
+
+useEffect(() => {
+    loadPeople(currentPage);
   }, [currentPage]);
 
-  async function loadPeople() {
+  async function loadPeople(page) {
     dispatch(peopleActions.setLoading(true));
     try {
-      const data = await fetchPeople(dispatch);
+      const data = await fetchPeople(page)(dispatch);
       dispatch(peopleActions.setPeople(data));
     } catch (exception) {
       // Handle error
@@ -30,25 +45,41 @@ function PeoplePage() {
       dispatch(peopleActions.setLoading(false));
     }
   }
+  const displayedPeople = people.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+  
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
-   // Calculate the indices for pagination
-   const lastIndex = currentPage * itemsPerPage;
-   const firstIndex = lastIndex - itemsPerPage;
-   const displayedPeople = people.slice(firstIndex, lastIndex);
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  //  // Calculate the indices for pagination
+  //  const lastIndex = currentPage * itemsPerPage;
+  //  const firstIndex = lastIndex - itemsPerPage;
+  //  const displayedPeople = people.slice(firstIndex, lastIndex);
  
-   const totalPages = Math.ceil(people.length / itemsPerPage);
+  //  const totalPages = Math.ceil(people.length / itemsPerPage);
  
-   const handlePrevious = () => {
-     if (currentPage > 1) {
-       setCurrentPage(currentPage - 1);
-     }
-   };
+  //  const handlePrevious = () => {
+  //    if (currentPage > 1) {
+  //      setCurrentPage(currentPage - 1);
+  //    }
+  //  };
  
-   const handleNext = () => {
-     if (currentPage < totalPages) {
-       setCurrentPage(currentPage + 1);
-     }
-   };
+  //  const handleNext = () => {
+  //    if (currentPage < totalPages) {
+  //      setCurrentPage(currentPage + 1);
+  //    }
+  //  };
 
    
 
