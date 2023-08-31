@@ -6,6 +6,7 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <Link to="/people" className={styles.button}>People</Link>
+      <Link to="/movie" className={styles.button1}>Movie</Link>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 //import axios from 'axios';
 
 const peopleState = {
-  people: [],
+  people: null,
   loading: false,
 };
 
@@ -18,6 +18,7 @@ const peopleSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+
   },
 });
 

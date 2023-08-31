@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../../generics/Navbar/navbar';
-import styles from './people.module.scss';
+import styles from './Movie.module.scss';
 import { BarLoader } from 'react-spinners';
-import { peopleActions } from '../../../redux/slices/star.slice'; // Update the path accordingly
-import { fetchPeople } from '../../../services/starService';
+import { movieActions } from '../../../redux/slices/movie.slice'; // Update the path accordingly
+import { fetchMovie } from '../../../services/movieService';
 
 
-function PeoplePage() {
+function MoviePage() {
 
   const dispatch = useDispatch();
-  const { people, loading } = useSelector((state) => state.peopleState);
+  const { movie, loading } = useSelector((state) => state.movieState);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    loadPeople(1);
+    loadMovie(1);
   }, []);
 
-  async function loadPeople(_pageNumber) {
-    const response = await dispatch(fetchPeople(_pageNumber));
+  async function loadMovie(_pageNumber) {
+    console.log('test');
+    const response = await dispatch(fetchMovie(_pageNumber));
     const _totalPages = Math.ceil(response.count / 10);
     setTotalPages(_totalPages);
   }
@@ -32,7 +33,7 @@ function PeoplePage() {
 
     const _page = currentPage - 1;
     setCurrentPage(_page);
-    loadPeople(_page);
+    loadMovie(_page);
   };
 
   const handleNext = () => {
@@ -43,29 +44,29 @@ function PeoplePage() {
 
     const _page = currentPage + 1;
     setCurrentPage(_page);
-    loadPeople(_page);
+    loadMovie(_page);
   };
 
   return (
     <div className={styles.pageContainer}>
       <Navbar />
-      {loading || !people ? (
+      {loading || !movie ? (
         <div className={styles.loadingContainer}>
           <BarLoader color="#142d4c" loading={loading} />
         </div>
       ) : (
         <div className={`${styles.cardsContainer} ${styles.marginTop}`}>
-          {people.results.map((person, index) => (
+          {movie.results.map((person, index) => (
             <div className={styles.card} key={index}>
               <div className={styles.cardImage}>
                 <img
-                  src={`https://source.unsplash.com/300x200/?starwars,${person.name}`}
-                  alt={person.name}
+                  src={`https://source.unsplash.com/300x200/?starwars,${person.director}`}
+                  alt={person.director}
                   className={styles.image}
                 />
               </div>
-              <h3 className={styles.cardTitle}>{person.name}</h3>
-              <p className={styles.cardBody}>Height: {person.height}</p>
+              <h3 className={styles.cardTitle}>{person.director}</h3>
+              <p className={styles.cardBody}>Height: {person.title}</p>
               <button className={styles.cardButton}>Action</button>
             </div>
           ))}
@@ -95,4 +96,4 @@ function PeoplePage() {
   );
 };
 
-export default PeoplePage;
+export default MoviePage;
