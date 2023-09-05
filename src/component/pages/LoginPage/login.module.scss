@@ -3,12 +3,12 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #9fd3c7;
+  background-color: var(--backgroundColor);
 }
 
 .button {
   padding: 12px 24px;
-  background-color: #385170;
+  background-color: var(--secondaryColor);
   color: white;
   border: none;
   border-radius: 4px;
@@ -19,7 +19,7 @@
 }
 .button1 {
   padding: 12px 24px;
-  background-color: #385170;
+  background-color: var(--secondaryColor);
   color: white;
   border: none;
   border-radius: 4px;
@@ -31,7 +31,7 @@
 }
 
 .button:hover {
-  background-color: #0056b3;
+  background-color: var(-- --hoverButton);
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
 }
 

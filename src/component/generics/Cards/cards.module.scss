@@ -1,0 +1,159 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: var(--backgroundColor);
+  display: flex;
+  flex-direction: column;
+  /* This helps with growing content */
+  overflow: hidden;
+  /* Prevent scroll bars from showing on the body */
+}
+
+/* Styles for loading container */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: fixed;
+  /* Position the loading container relative to the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  // height: 100%;
+}
+
+/* Styles for cards container */
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  margin: 0 60px;
+
+  /* Apply flex-grow to allow ::after to cover the whole container */
+  flex-grow: 1;
+
+  /* Position the pseudo-element relative to the container */
+  position: relative;
+
+  &:hover::after {
+    /* Show the pseudo-element on container hover */
+    opacity: 5;
+    transform: scale(1.2);
+  }
+
+}
+
+
+/* Styles for individual cards */
+.card {
+  border: 1px solid #ccc;
+  padding: 5px;
+  width: calc(30% - 20px);
+  /* background-color: #f7f7f7; */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cardBackgroundColor);
+  box-shadow: 0 5px 10px rgba(45, 53, 124, 0.1);
+  border: 1px solid var(--cardBorderColor);
+
+  &:hover {
+
+    /* Add a yellow glow effect using ::after pseudo-element */
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background-color: var(--hoverBackground);
+      opacity: 0;
+      /* Start with no opacity */
+      transform: scale(1.1);
+      z-index: -1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+  }
+
+}
+
+
+.cardImage {
+  overflow: hidden;
+  height: 150px;
+  border-radius: 8px 8px 0 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardTitle {
+  /* font-size: 20px; */
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--textColor);
+  font-family: Monospace;
+}
+
+.cardBody {
+  /* font-size: 16px; */
+  font-size: 16px;
+  color: var(--textBodyColor);
+  font-family: Monospace;
+  font-weight: bold;
+}
+
+.cardButton {
+  background-color: var(--primaryColor);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.cardButton:hover {
+  background-color: var(--secondaryColor);
+}
+
+.marginTop {
+  margin-top: 50px;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.paginationButton {
+  background-color: #142d4c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
+}
+
+.paginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pageNumber {
+  font-size: 16px;
+}

@@ -5,6 +5,7 @@ import styles from './people.module.scss';
 import { BarLoader } from 'react-spinners';
 import { peopleActions } from '../../../redux/slices/star.slice'; // Update the path accordingly
 import { fetchPeople } from '../../../services/starService';
+import Card from '../../generics/Cards/cards';
 
 
 function PeoplePage() {
@@ -56,18 +57,26 @@ function PeoplePage() {
       ) : (
         <div className={`${styles.cardsContainer} ${styles.marginTop}`}>
           {people.results.map((person, index) => (
-            <div className={styles.card} key={index}>
-              <div className={styles.cardImage}>
-                <img
-                  src={`https://source.unsplash.com/300x200/?starwars,${person.name}`}
-                  alt={person.name}
-                  className={styles.image}
-                />
-              </div>
-              <h3 className={styles.cardTitle}>{person.name}</h3>
-              <p className={styles.cardBody}>Height: {person.height}</p>
-              <button className={styles.cardButton}>Action</button>
-            </div>
+
+            <Card
+              key={index}
+              imageUrl={`https://source.unsplash.com/300x200/?starwars,${person.name}`}
+              title={person.name}
+              body={`Height: ${person.height}`}
+            />
+
+            // <div className={styles.card} key={index}>
+            //   <div className={styles.cardImage}>
+            //     <img
+            //       src={`https://source.unsplash.com/300x200/?starwars,${person.name}`}
+            //       alt={person.name}
+            //       className={styles.image}
+            //     />
+            //   </div>
+            //   <h3 className={styles.cardTitle}>{person.name}</h3>
+            //   <p className={styles.cardBody}>Height: {person.height}</p>
+            //   <button className={styles.cardButton}>Action</button>
+            // </div>
           ))}
         </div>
       )}

@@ -5,6 +5,7 @@ import styles from './Movie.module.scss';
 import { BarLoader } from 'react-spinners';
 import { movieActions } from '../../../redux/slices/movie.slice'; // Update the path accordingly
 import { fetchMovie } from '../../../services/movieService';
+import Card from '../../generics/Cards/cards';
 
 
 function MoviePage() {
@@ -19,7 +20,7 @@ function MoviePage() {
   }, []);
 
   async function loadMovie(_pageNumber) {
-    console.log('test');
+    //console.log('test');
     const response = await dispatch(fetchMovie(_pageNumber));
     const _totalPages = Math.ceil(response.count / 10);
     setTotalPages(_totalPages);
@@ -57,18 +58,25 @@ function MoviePage() {
       ) : (
         <div className={`${styles.cardsContainer} ${styles.marginTop}`}>
           {movie.results.map((person, index) => (
-            <div className={styles.card} key={index}>
-              <div className={styles.cardImage}>
-                <img
-                  src={`https://source.unsplash.com/300x200/?starwars,${person.director}`}
-                  alt={person.director}
-                  className={styles.image}
-                />
-              </div>
-              <h3 className={styles.cardTitle}>{person.director}</h3>
-              <p className={styles.cardBody}>Height: {person.title}</p>
-              <button className={styles.cardButton}>Action</button>
-            </div>
+
+            <Card
+              key={index}
+              imageUrl={`https://source.unsplash.com/300x200/?starwars,${person.director}`}
+              title={person.director}
+              body={`Height: ${person.title}`}
+            />
+            // <div className={styles.card} key={index}>
+            //   <div className={styles.cardImage}>
+            //     <img
+            //       src={`https://source.unsplash.com/300x200/?starwars,${person.director}`}
+            //       alt={person.director}
+            //       className={styles.image}
+            //     />
+            //   </div>
+            //   <h3 className={styles.cardTitle}>{person.director}</h3>
+            //   <p className={styles.cardBody}>Height: {person.title}</p>
+            //   <button className={styles.cardButton}>Action</button>
+            // </div>
           ))}
         </div>
       )}

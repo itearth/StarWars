@@ -5,7 +5,7 @@ import movieReducer from './slices/movie.slice';
 
 const rootReducer = combineReducers({
   peopleState: peopleReducer,
-  moviestate: movieReducer
+  movieState: movieReducer
 });
 
 export default rootReducer;
