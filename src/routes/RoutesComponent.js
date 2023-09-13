@@ -4,7 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import routes from './routes';
 
-const App = () => {
+const Application = () => {
   return (
     <Router>
       <Routes>
@@ -16,4 +16,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Application;

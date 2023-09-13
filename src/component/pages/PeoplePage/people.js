@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../../generics/Navbar/navbar';
 import styles from './people.module.scss';
 import { BarLoader } from 'react-spinners';
-import { peopleActions } from '../../../redux/slices/star.slice'; // Update the path accordingly
+import { peopleActions } from '../../../redux/slices/star.slice'; 
 import { fetchPeople } from '../../../services/starService';
 import Card from '../../generics/Cards/cards';
+import { useNavigate } from 'react-router-dom';
 
 
 function PeoplePage() {
@@ -14,9 +15,21 @@ function PeoplePage() {
   const { people, loading } = useSelector((state) => state.peopleState);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   loadPeople(1);
+  // }, []);
 
   useEffect(() => {
-    loadPeople(1);
+    // Retrieve the current page from localStorage
+    const savedPage = localStorage.getItem('currentPage');
+    if (savedPage) {
+      setCurrentPage(parseInt(savedPage));
+      loadPeople(parseInt(savedPage));
+    } else {
+      loadPeople(1);
+    }
   }, []);
 
   async function loadPeople(_pageNumber) {
@@ -34,6 +47,9 @@ function PeoplePage() {
     const _page = currentPage - 1;
     setCurrentPage(_page);
     loadPeople(_page);
+     // Save the current page to localStorage
+     localStorage.setItem('currentPage', _page.toString());
+     navigate(`/people?page=${_page}`);
   };
 
   const handleNext = () => {
